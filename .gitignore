@@ -1,0 +1,17 @@
+.DS_Store
+.idea
+.project
+.classpath
+.settings
+.vscode
+*.swp
+**.iml
+**/target
+Certificates/
+/build/
+.factorypath
+*.out
+*.log
+config/
+logs/
+deploy/
