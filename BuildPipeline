@@ -1,6 +1,7 @@
 node {
     stage('Build') {
         echo 'Build'
+        sh 'build'
     }
     stage('Test') {
         echo 'Test'
