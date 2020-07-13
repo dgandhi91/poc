@@ -1,5 +1,6 @@
 node {
     stage('Build') {
+        echo ${WORKSPACE}
         echo 'Build'
     }
     stage('Test') {
