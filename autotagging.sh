@@ -53,6 +53,7 @@ CURRENT_COMMIT_TAG=`git describe --contains $GIT_COMMIT 2>/dev/null`
 if [ -z "$CURRENT_COMMIT_TAG" ]; then
     echo "Updating $VERSION to $NEW_TAG"
     git tag $NEW_TAG
+    git remote add origin https://dgandhi91:f7612df6640351946062abee964b4a84f5dd2e6a@github.com/dgandhi91/poc.git
     git push --tags
     echo "Tag created and pushed: $NEW_TAG"
 else
