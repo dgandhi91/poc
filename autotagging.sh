@@ -1,5 +1,25 @@
 #!/bin/sh
 
+PROJECT_ID=
+PRIVATE_TOKEN=f7612df6640351946062abee964b4a84f5dd2e6a
+
+#function findChangedModules()
+#{
+#
+#    lastMergeIid=$1
+#    (curl -s -X GET -H 'PRIVATE-TOKEN: '${PRIVATE_TOKEN} 'https://gitlab.cee.redhat.com/api/v4/projects/'$PROJECTID'/merge_requests/'$lastMergeIid'/changes' | jq -r '.changes[] | .old_path, .new_path')|while read fname; do
+#        IFS='/' read -ra path <<< "$fname"
+#
+#        if [[ " ${changedModules[*]} " == *"${path[0]}"* ]];
+#        then
+#            echo ""
+#        else
+#            changedModules+=(${path[0]});
+#            echo ${path[0]};
+#        fi
+#    done
+#}
+
 # This script will be executed after commit in placed in .git/hooks/post-commit
 
 # Semantic Versioning 2.0.0 guideline
@@ -9,7 +29,7 @@
 # MINOR version when you add functionality in a backwards-compatible manner, and
 # PATCH version when you make backwards-compatible bug fixes.
 
-echo "Starting the taging process based on commit message"
+echo "Starting the taging process based on commit message +semver: xxxxx"
 
 #get highest tags across all branches, not just the current branch
 VERSION=`git describe --tags $(git rev-list --tags --max-count=1)`
@@ -30,9 +50,9 @@ VNUM3=${VERSION_BITS[2]}
 # minor-version-bump-message: '\+semver:\s?(feature|minor)'
 # patch-version-bump-message: '\+semver:\s?(fix|patch)'
 # get last commit message and extract the count for "semver: (major|minor|patch)"
-COUNT_OF_COMMIT_MSG_HAVE_SEMVER_MAJOR=`git log -1 --pretty=%B | egrep -c '\s?(breaking|major)'`
-COUNT_OF_COMMIT_MSG_HAVE_SEMVER_MINOR=`git log -1 --pretty=%B | egrep -c '\s?(feature|minor)'`
-COUNT_OF_COMMIT_MSG_HAVE_SEMVER_PATCH=`git log -1 --pretty=%B | egrep -c '\s?(fix|patch)'`
+COUNT_OF_COMMIT_MSG_HAVE_SEMVER_MAJOR=`git log -1 --pretty=%B | egrep -c '\+semver:\s?(breaking|major)'`
+COUNT_OF_COMMIT_MSG_HAVE_SEMVER_MINOR=`git log -1 --pretty=%B | egrep -c '\+semver:\s?(feature|minor)'`
+COUNT_OF_COMMIT_MSG_HAVE_SEMVER_PATCH=`git log -1 --pretty=%B | egrep -c '\+semver:\s?(fix|patch)'`
 
 if [ $COUNT_OF_COMMIT_MSG_HAVE_SEMVER_MAJOR -gt 0 ]; then
     VNUM1=$((VNUM1+1))
@@ -58,6 +78,8 @@ echo "Updating $VERSION to $NEW_TAG"
 if [ $COUNT_OF_COMMIT_MSG_HAVE_SEMVER_MAJOR -gt 0 ] ||  [ $COUNT_OF_COMMIT_MSG_HAVE_SEMVER_MINOR -gt 0 ] || [ $COUNT_OF_COMMIT_MSG_HAVE_SEMVER_PATCH -gt 0 ]; then
     echo "Tagged with $NEW_TAG (Ignoring fatal:cannot describe - this means commit is untagged) "
     git tag "$NEW_TAG"
+    git push --tags
+    echo "Tag created and pushed: $NEW_TAG"
 else
     echo "Already a tag on this commit"
 fi
