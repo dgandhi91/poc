@@ -9,7 +9,7 @@
 # MINOR version when you add functionality in a backwards-compatible manner, and
 # PATCH version when you make backwards-compatible bug fixes.
 
-echo "Starting the taging process based on commit message +semver: xxxxx"
+echo "Starting the taging process based on commit message"
 
 #get highest tags across all branches, not just the current branch
 VERSION=`git describe --tags $(git rev-list --tags --max-count=1)`
@@ -30,9 +30,9 @@ VNUM3=${VERSION_BITS[2]}
 # minor-version-bump-message: '\+semver:\s?(feature|minor)'
 # patch-version-bump-message: '\+semver:\s?(fix|patch)'
 # get last commit message and extract the count for "semver: (major|minor|patch)"
-COUNT_OF_COMMIT_MSG_HAVE_SEMVER_MAJOR=`git log -1 --pretty=%B | egrep -c '\+semver:\s?(breaking|major)'`
-COUNT_OF_COMMIT_MSG_HAVE_SEMVER_MINOR=`git log -1 --pretty=%B | egrep -c '\+semver:\s?(feature|minor)'`
-COUNT_OF_COMMIT_MSG_HAVE_SEMVER_PATCH=`git log -1 --pretty=%B | egrep -c '\+semver:\s?(fix|patch)'`
+COUNT_OF_COMMIT_MSG_HAVE_SEMVER_MAJOR=`git log -1 --pretty=%B | egrep -c '\s?(breaking|major)'`
+COUNT_OF_COMMIT_MSG_HAVE_SEMVER_MINOR=`git log -1 --pretty=%B | egrep -c '\s?(feature|minor)'`
+COUNT_OF_COMMIT_MSG_HAVE_SEMVER_PATCH=`git log -1 --pretty=%B | egrep -c '\s?(fix|patch)'`
 
 if [ $COUNT_OF_COMMIT_MSG_HAVE_SEMVER_MAJOR -gt 0 ]; then
     VNUM1=$((VNUM1+1))
