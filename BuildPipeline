@@ -1,15 +1,12 @@
 node {
-    stage(‘Preparation’){
+    stage('Build') {
         echo 'Checking out code'
         checkout scm
-    }
-    stage('Build') {
-        echo 'Nothing to Build as of now'
     }
     stage('Test') {
         echo 'No Tests as of now'
     }
-    stage('Auto Tagging') {
+    stage('Deploy') {
         echo 'Running autotagging script'
         sh ('${WORKSPACE}/autotagging.sh')
     }
