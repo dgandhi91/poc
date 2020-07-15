@@ -1,25 +1,5 @@
 #!/bin/sh
 
-PROJECT_ID=
-PRIVATE_TOKEN=f7612df6640351946062abee964b4a84f5dd2e6a
-
-#function findChangedModules()
-#{
-#
-#    lastMergeIid=$1
-#    (curl -s -X GET -H 'PRIVATE-TOKEN: '${PRIVATE_TOKEN} 'https://gitlab.cee.redhat.com/api/v4/projects/'$PROJECTID'/merge_requests/'$lastMergeIid'/changes' | jq -r '.changes[] | .old_path, .new_path')|while read fname; do
-#        IFS='/' read -ra path <<< "$fname"
-#
-#        if [[ " ${changedModules[*]} " == *"${path[0]}"* ]];
-#        then
-#            echo ""
-#        else
-#            changedModules+=(${path[0]});
-#            echo ${path[0]};
-#        fi
-#    done
-#}
-
 #get highest tag number
 VERSION=`git describe --abbrev=0 --tags 2>/dev/null`
 
@@ -53,7 +33,6 @@ CURRENT_COMMIT_TAG=`git describe --contains $GIT_COMMIT 2>/dev/null`
 if [ -z "$CURRENT_COMMIT_TAG" ]; then
     echo "Updating $VERSION to $NEW_TAG"
     git tag $NEW_TAG
-    git remote add origin https://dgandhi91:f7612df6640351946062abee964b4a84f5dd2e6a@github.com/dgandhi91/poc.git
     git push --tags
     echo "Tag created and pushed: $NEW_TAG"
 else
