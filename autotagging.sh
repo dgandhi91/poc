@@ -1,3 +1,5 @@
+#!/bin/sh
+
 # This script will be executed after commit in placed in .git/hooks/post-commit
 
 # Semantic Versioning 2.0.0 guideline
