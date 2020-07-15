@@ -10,6 +10,6 @@ node {
         echo 'Running autotagging script'
         pom = readMavenPom file: 'pom.xml'
         echo pom.version
-        sh ('${WORKSPACE}/autotagging1.sh ${pom.version}')
+        sh ('${WORKSPACE}/autotagging1.sh pom.version')
     }
 }
