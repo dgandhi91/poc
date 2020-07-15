@@ -1,6 +1,6 @@
 #!/bin/sh
 
-#get highest tags on master
+#get highest tags across all branches, not just the current branch
 VERSION=`git describe --tags --abbrev=0`
 echo "Latest Tag Version: $VERSION"
 
