@@ -1,5 +1,8 @@
 #!/bin/sh
 
-#get highest tags across all branches, not just the current branch
-VERSION=`git describe --tags $(git rev-list --tags --max-count=1)`
-echo "Version: $VERSION"
+#get highest tags on master
+VERSION=`git describe master --tags --abbrev=0`
+echo "Latest Tag Version: $VERSION"
+
+#get current pom version
+echo "Pom Version: ${POM_VERSION}"
