@@ -8,6 +8,6 @@ node {
     }
     stage('Deploy') {
         echo 'Running autotagging script'
-        sh ('${WORKSPACE}/autotagging.sh')
+        sh ('${WORKSPACE}/autotagging1.sh')
     }
 }
