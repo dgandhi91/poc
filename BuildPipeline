@@ -9,7 +9,8 @@ node {
     stage('Deploy') {
         echo 'Running autotagging script'
         pom = readMavenPom file: 'pom.xml'
-        echo pom.version
-        sh ('${WORKSPACE}/autotagging1.sh pom.version')
+        projectVersion = pom.version
+        echo projectVersion
+        sh ('${WORKSPACE}/autotagging1.sh ${projectVersion}')
     }
 }
