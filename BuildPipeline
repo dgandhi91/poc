@@ -8,6 +8,7 @@ node {
     }
     stage('Deploy') {
         echo 'Running autotagging script'
+        echo 'POM Version ${POM_VERSION}'
         sh ('${WORKSPACE}/autotagging1.sh')
     }
 }
