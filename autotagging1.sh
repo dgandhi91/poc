@@ -7,7 +7,7 @@ echo "Latest Tag Version: $LATEST_TAG_VERSION"
 #get current pom version
 echo "Pom Version in auto tagging: $1"
 
-if $LATEST_TAG_VERSION != $1; then
+if [$LATEST_TAG_VERSION != $1]; then
     git tag $1
     git push --tags
     echo "Tag created and pushed: $1"
