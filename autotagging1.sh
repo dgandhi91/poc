@@ -5,13 +5,12 @@ LATEST_TAG_VERSION=`git describe --tags --abbrev=0`
 echo "Latest Tag Version: $LATEST_TAG_VERSION"
 
 #get current pom version
-POM_VERSION = $1
-echo "Pom Version in auto tagging: $POM_VERSION"
+echo "Pom Version in auto tagging: $1"
 
-if $LATEST_TAG_VERSION != $POM_VERSION; then
-    git tag "$POM_VERSION"
+if $LATEST_TAG_VERSION != $1; then
+    git tag $1
     git push --tags
-    echo "Tag created and pushed: $POM_VERSION"
+    echo "Tag created and pushed: $1"
 else
     echo "Already a tag on this commit"
 fi
